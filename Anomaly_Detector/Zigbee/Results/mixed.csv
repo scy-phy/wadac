@@ -1,0 +1,5 @@
+"","filename","Accuracy","sensitivity","specificity"
+"2","huebulb_zb_features_s_bk100.db","0.993150684931507","0.946969696969697","1"
+"3","huebulb_zb_features_s_bk40.db","0.992378878606423","0.96048632218845","0.999336870026525"
+"4","huebulb_zb_features_s_bk60.db","0.990420044215181","0.941176470588235","1"
+"5","huebulb_zb_features_s_bk80.db","0.993248945147679","0.951807228915663","1"

@@ -1,0 +1,134 @@
+t_mac , text, mac address of the IoT device
+
+t_label , text, indicates a high level brief description of the activity performed by device, e.g. streaming or idle
+
+c_blk_sz ,  int, frames in a pcap file is grouped into blocks of equal size called block size
+
+f_time_window ,  real, time difference of last frame and first frame in a block
+
+c_c_mx , int, count of number of all management frames both sent and received in a block
+
+f_fr_mx_x , real, ratio between no. of all management frames and no. of all frames
+
+c_c_mx_us , int, no. of unique sizes of all management frames in a block
+
+f_mn_mx_xs , real, mean of the sizes of all management frames -- sizes of all frames, not only unique sized frames
+
+f_sd_mx_xs , real, std of the sizes of all management frames -- sizes of all frames, not only unique sized frames
+
+c_c_ms , int, count of number of only sent management frames from the given MAC address in a block
+
+f_fr_ms_mx , real, ratio between no. of sent management frames and block size
+
+c_c_ms_us , int, no. of unique sizes of sent management frames in a block
+
+f_mn_ms_xs , real, mean of the sizes of sent management frames -- sizes of sent frames not only unique sized frames
+
+f_sd_ms_xs , real, std of the sizes of sent management frames -- sizes of sent frames not only unique sized frames
+
+c_c_mr , int, count of number of only received management frames by the given MAC address in a block
+
+f_fr_mr_mx , real, ratio between no. of recv. management frames and block size
+
+c_c_ms_us , int, no. of unique sizes of recv. management frames in a block
+
+f_mn_ms_xs , real, mean of the sizes of recv. management frames -- sizes of recv. frames not only unique sized frames
+
+f_sd_ms_xs , real, std of the sizes of recv. management frames -- sizes of recv. frames, not only unique sized frames
+
+c_c_cx , int, count of number of all control frames both sent and received in a block
+
+f_fr_cx_x , real, ratio between no. of all control frames and no. of all frames
+
+c_c_cx_us , int, no. of unique sizes of all control frames in a block
+
+f_mn_cx_xs , real, mean of the sizes of all control frames -- sizes of all frames, not only unique sized frames
+
+f_sd_cx_xs , real, std of the sizes of all control frames -- sizes of all frames, not only unique sized frames
+
+c_c_cs , int, count of number of only sent control frames from the given MAC address in a block
+
+f_fr_cs_cx , real, ratio between no. of sent control frames and block size
+
+c_c_cs_us , int, no. of unique sizes of sent control frames in a block
+
+f_mn_cs_xs , real, mean of the sizes of sent control frames -- sizes of sent frames, not only unique sized frames
+
+f_sd_cs_xs , real, std of the sizes of sent control frames -- sizes of sent frames, not only unique sized frames
+
+c_c_cr , int, count of number of only received control frames by the given MAC address in a block
+
+f_fr_cr_cx , real, ratio between no. of recv. control frames and block size
+
+c_c_cr_us , int, no. of unique sizes of recv. control frames in a block
+
+f_mn_cr_xs , real, mean of the sizes of recv. control frames -- sizes of recv. frames, not only unique sized frames
+
+f_sd_cr_xs , real, std of the sizes of recv. control frames -- sizes of recv. frames, not only unique sized frames
+
+c_c_dx , int, count of number of all data frames both sent and received in a block
+
+f_fr_dx_x , real, ratio between no. of all data frames and no. of all frames
+
+c_c_dx_us , int, no. of unique sizes of all data frames in a block
+
+f_mn_dx_xs , real, mean of the sizes of all data frames -- sizes of all frames, not only unique sized frames
+
+f_sd_dx_xs , real, std of the sizes of all data frames -- sizes of all frames, not only unique sized frames
+
+c_c_ds , int, count of number of only sent data frames from the given MAC address in a block
+
+f_fr_ds_dx , real, ratio between no. of sent data frames and block size
+
+c_c_ds_us , int, no. of unique sizes of sent data frames in a block
+
+f_mn_ds_xs , real, mean of the sizes of sent data frames -- sizes of sent frames, not only unique sized frames
+
+f_sd_ds_xs , real, std of the sizes of sent data frames -- sizes of sent frames, not only unique sized frames
+
+c_c_dr , int, count of number of only received data frames by the given MAC address in a block
+
+f_fr_dr_mx , real, ratio between no. of recv. data frames and block size
+
+c_c_dr_us , int, no. of unique sizes of recv. data frames in a block
+
+f_mn_dr_xs , real, mean of the sizes of recv. data frames -- sizes of recv. frames, not only unique sized frames
+
+f_sd_dr_xs , real, std of the sizes of recv. data frames -- sizes of recv. frames, not only unique sized frames
+
+c_cdx_b , int, count of number of all data frames for the given MAC address in bin index b_i bin index = frame size / bin length
+
+f_fr_dx_tb_b_ , real, ratio of number of all data frames in bin index b_i and number of all frames in the block
+
+f_mn_xs_dx_b_ , real, mean of the sizes of all data frames in bin index b_i
+
+f_sd_xs_dx_b_ , real, std of the sizes of all data frames in bin index b_i
+
+f_mn_tg_dx_b_ , real, mean of time gaps between all data frames in bin index b_i
+
+f_sd_tg_dx_b_ , real, std of time gaps between all data frames in bin index b_i
+
+c_cds_b , int, count of number of send data frames for the given MAC address in bin index b_i bin index = frame size / bin length
+
+f_fr_ds_tb_b_ , real, ratio of number of send data frames in bin index b_i and number of all frames in the block
+
+f_mn_xs_ds_b_ , real, mean of the sizes of send data frames in bin index b_i
+
+f_sd_xs_ds_b_ , real, std of the sizes of send data frames in bin index b_i
+
+f_mn_tg_ds_b_ , real, mean of time gaps between send data frames in bin index b_i
+
+f_sd_tg_ds_b_ , real, std of time gaps between send data frames in bin index b_i
+
+c_cdr_b , int, count of number of recv. data frames for the given MAC address in bin index b_i bin index = frame size / bin length
+
+f_fr_dr_tb_b_ , real, ratio of number of recv. data frames in bin index b_i and number of all frames in the block
+
+f_mn_xs_dr_b_ , real, mean of the sizes of recv. data frames in bin index b_i
+
+f_sd_xs_dr_b_ , real, std of the sizes of recv. data frames in bin index b_i
+
+f_mn_tg_dr_b_ , real, mean of time gaps between recv. data frames in bin index b_i
+
+f_sd_tg_dr_b_ , real, std of time gaps between recv. data frames in bin index b_i
+
