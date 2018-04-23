@@ -1156,7 +1156,7 @@ def create_database(bin_length,max_pkt_size,db_name,tab_name_traffic_features,ta
 
 def get_db_file_name(bin_length,block_size):
     base_attack_db = './base_attack_traffic.db'
-    db_name = './nestcam/db_nestcam_normal_ddos_sigs_bnl'+str(bin_length) +'_bks'+str(block_size)+'.db'
+    db_name = './WADAC_Database/nestcam/db_nestcam_normal_ddos_sigs_bnl'+str(bin_length) +'_bks'+str(block_size)+'.db'
     su.copy2(base_attack_db,db_name)
     return db_name
 
@@ -1197,8 +1197,8 @@ if __name__ == '__main__':
     #report_feature_description(dir_name+read_me)
 
     #get pcap file name and db file name
-    #dir_name = '../trace_nestcam_ddos/'
-    dir_name = './trace_nestcam_normal/'
+    #dir_name = './ids_disclosure_wisec_trace/trace_nestcam_ddos/'
+    dir_name = './ids_disclosure_wisec_trace/trace_nestcam_normal/'
     fname_list = get_file_name(dir_name)
 
     extract_features_from(fname_list)
