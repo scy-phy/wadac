@@ -1,0 +1,198 @@
+---
+title: "WADAC"
+output:  flexdashboard::flex_dashboard
+orientation: rows
+vertical_layout: scroll
+runtime: shiny
+---
+
+  
+  
+```{r global, include=FALSE}
+# library(shiny)
+library(dplyr)
+library(keras)
+library(stringi)
+library(ggplot2)
+library(randomForest)
+library(plotly)
+ library(RSQLite)
+library(pool)
+load("cols_keep.RData")
+source("desc_normalize.R")
+# source("demo_main.R")
+model_demo <- load_model_hdf5("model_cam.hdf5")
+
+load(file="desc_normal_train.RData")
+load(file="mse_train.RData")
+k= (quantile(mse_train,probs = c(0.75))+1.5*IQR(mse_train))+3
+
+
+```
+```{r}
+
+div(style="display:inline-block",actionButton("start","Get Packets"), style="float:right")
+# div(style="display:inline-block",actionButton("stop" ,'STOP!'), style="float:right")
+
+```
+  
+Anomaly Detector
+=======================================================================
+Column     
+-----------------------------------------------------------------------
+```{r}
+
+fileData = reactive({
+  driver <- dbDriver("SQLite")
+conn <- dbConnect(driver,dbname="./demo/live_db_sigs_bnl800_bks300.db")
+
+tab <- dbListTables(conn)
+tab
+
+data <- dbGetQuery(conn,paste0("select * from ", tab[2])) 
+data <- Filter(function(x)(length(unique(x))>1), data)
+data = data%>% mutate(Timestamp = as.POSIXct(f_time_fstframe,origin="1970-01-01",tz = Sys.timezone())) %>%    select(-f_time_fstframe) %>% select(cols_keep,Timestamp,t_label)
+
+return(data)  
+
+})
+
+ # observeEvent(input$start, {
+ #    print("works")
+ #    system('python live_capture_n_extract_features_anomaly_detect.py' )
+ #   })
+
+
+apply_model = reactive({
+  # k = 1.5
+    # test_dat = data %>% select(-t_label)
+  test_dat = fileData() %>% select(-t_label)
+  desc_attack = get_desc(test_dat %>% select(-Timestamp))
+  
+  mix_test <- test_dat%>% 
+     select(-Timestamp) %>%  
+    normalization_minmax(desc_attack) %>% as.matrix()
+  
+  
+  pred_mix <- (predict(model_demo, mix_test)) 
+  mse_mix <- apply((mix_test - pred_mix)^2, 1, sum)
+  mix_data_out = test_dat %>% mutate(mse = mse_mix)
+  mix_data_out = mix_data_out %>% mutate(anomaly = as.factor(ifelse(mse>k,1,0))) 
+  # any(mix_data_out$anomaly==0)
+  mix_data=mix_data_out
+  return(mix_data_out)
+})
+
+attack_classification = reactive({
+load("supervised_model.RData")  
+attack_data =  apply_model() %>% filter(anomaly==1) %>% select(-anomaly)
+print(ncol(attack_data))
+library(caret)
+attack_data$pred_label <- predict(best_model,newdata=attack_data,type = "response") 
+return(attack_data)
+})
+
+
+
+renderPlotly({
+# k = 1.366
+mix_data =   apply_model()
+
+p = ggplot(mix_data,aes(x = Timestamp, y = mse,color = anomaly)) + geom_point()  + geom_line(aes(y=k))+scale_color_brewer(palette = "Set2") + theme_bw()
+ggplotly(p)
+})
+```
+
+
+Feature Analysis
+=======================================================================
+Column     
+-----------------------------------------------------------------------
+```{r}
+renderPlotly({
+# k = 1.366
+mix_data =   apply_model()
+
+p = ggplot(mix_data,aes(x = Timestamp, y = f_mn_cx_xs,color = anomaly)) + geom_point()+ theme_bw()+scale_color_brewer(palette = "Set2")   #+ geom_line(aes(y=k))+scale_color_brewer(palette = "Set2")
+ggplotly(p)
+})
+
+renderPlotly({
+# k = 1.366
+mix_data =   apply_model()
+
+p = ggplot(mix_data,aes(x = Timestamp, y = f_fr_dx_tb_b1,color = anomaly)) + geom_point()+ theme_bw() +scale_color_brewer(palette = "Set2")   #+ geom_line(aes(y=k))+scale_color_brewer(palette = "Set2")
+ggplotly(p)
+})
+
+renderPlotly({
+# k = 1.366
+mix_data =   apply_model()
+
+p = ggplot(mix_data,aes(x = Timestamp, y = f_fr_dx_tb_b0,color = anomaly)) + geom_point() + theme_bw() +scale_color_brewer(palette = "Set2")  #+ geom_line(aes(y=k))+scale_color_brewer(palette = "Set2")
+ggplotly(p)
+})
+
+```
+
+Attack Classification
+=======================================================================
+Column     
+-----------------------------------------------------------------------
+```{r}
+renderPlotly({
+attack_data =   attack_classification()
+p = ggplot(data=attack_data,aes(x=Timestamp,y=mse,color=pred_label))+geom_point()+theme_bw()
+ggplotly(p)
+})
+```
+
+Attack Features
+=======================================================================
+Column     
+-----------------------------------------------------------------------
+```{r}
+renderPlotly({
+attack_data =   attack_classification()
+p = ggplot(data=attack_data,aes(x=Timestamp,y=f_mn_xs_dx_b0,color=pred_label))+geom_point()+theme_bw()
+ggplotly(p)
+})
+```
+```{r}
+renderPlotly({
+attack_data =   attack_classification()
+p = ggplot(data=attack_data,aes(x=Timestamp,y=c_c_dx,color=pred_label))+geom_point()+theme_bw()
+ggplotly(p)
+})
+```
+```{r}
+renderPlotly({
+attack_data =   attack_classification()
+p = ggplot(data=attack_data,aes(x=Timestamp,y=f_fr_dx_x,color=pred_label))+geom_point()+theme_bw()
+ggplotly(p)
+})
+```
+```{r}
+renderPlotly({
+attack_data =   attack_classification()
+p = ggplot(data=attack_data,aes(x=Timestamp,y=f_fr_cx_x,color=pred_label))+geom_point()+theme_bw()
+ggplotly(p)
+})
+```
+
+
+
+Feature Summary
+=======================================================================
+Column     
+-----------------------------------------------------------------------
+```{r}
+ library(DT)
+renderDataTable({
+  print(head(fileData()$Timestamp))
+mean = apply(fileData() %>% select(cols_keep), 2, mean)  
+sd = apply(fileData() %>% select(cols_keep), 2, sd)
+summary_data = (rbind(mean,sd))
+summary_data
+})
+```
