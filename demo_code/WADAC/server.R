@@ -6,7 +6,7 @@ server <- function(input, output) {
   library(randomForest)
   library(future)
   plan(multiprocess)
-  library(plotly)
+  library(ggplot2)
   load("cols_keep.RData")
   load("mse_train.RData")
   load("desc_normal_train.RData")
@@ -89,7 +89,7 @@ server <- function(input, output) {
   })
   
   data = reactive({
-    library(reticulate) 
+    # library(reticulate) 
     library(future)
     plan(multiprocess)
     
