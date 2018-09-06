@@ -1,6 +1,6 @@
 ### WADAC
 
-WADAC is a privacy-preserving anomaly detection and attack classification framework developed by ReSILIoT. This repository comprises of the source code and sample datasets for work done in the paper  WADAC: Privacy-Preserving Anomaly Detection and Attack Classification on Wireless Traffic 
+WADAC is a privacy-preserving anomaly detection and attack classification framework developed by ReSILIoT. This repository comprises of the source code and sample datasets for work done in the paper  WADAC: Privacy-Preserving Anomaly Detection and Attack Classification on Wireless Traffic (https://dl.acm.org/citation.cfm?id=3212480.3212495)
 
 
 ### Prerequisites
