@@ -22,3 +22,20 @@ The following steps were carried out to demonstrate WADAC:
   
 ### Steps to run: 
 - Using RStudio: Open ./WADAC/server.R or ./WADAC/ui.R and click on RunApp
+- Via R terminal: Run the following in a R terminal 
+``runGitHub("scy-phy/wadac","<github_username>",subdir="demo_code/WADAC")``
+
+### System Details
+- OS: Ubuntu 17.10
+- R version details: 
+      platform       x86_64-pc-linux-gnu         
+      arch           x86_64                      
+      os             linux-gnu                   
+      system         x86_64, linux-gnu           
+      major          3                           
+      minor          4.2                         
+      language       R                           
+      version.string R version 3.4.2 (2017-09-28)
+      nickname       Short Summer
+ - Required R packages: dplyr, RSQLite, keras, randomForest, ggplot2, future, caret, shiny, shinythemes
+      
