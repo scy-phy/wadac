@@ -23,6 +23,7 @@ The following steps were carried out to demonstrate WADAC:
 ### Steps to run: 
 - Using RStudio: Open ./WADAC/server.R or ./WADAC/ui.R and click on RunApp
 - Via R terminal: Run the following in a R terminal 
+
 ``runGitHub("scy-phy/wadac","<github_username>",subdir="demo_code/WADAC")``
 
 ### System Details
