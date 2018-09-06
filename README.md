@@ -11,12 +11,10 @@ WADAC is a privacy-preserving anomaly detection and attack classification framew
 
 ### Test Run
 
-- Unzip the following files:
-  - base_attack_traffic.db.zip
-  - ids_disclosure_wisec_trace.zip
-  - WADAC_Database.zip
-- For feature extraction, run extract_features.py from feature_extraction folder.
-- For feature selection, anomaly detection and attack classification, run main.R in Anomaly_detector folder
+- Run unzip_all.R to unzip large files in the repository
+- To test and visualize WADAC, refer to demo_Readme.md in ./demo_code
+- To extract features used in the paper, run extract_features.py from feature_extraction folder
+- To replicate results of paper, for feature selection, anomaly detection and attack classification, run main.R in Anomaly_detector folder
 
 
 ### Authors
