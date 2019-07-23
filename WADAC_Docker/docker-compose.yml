@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+#  web:
+#    build:
+#      context: .
+#      dockerfile: docker2/python_Dockerfile
+    #command: bash -c "python3 /srv/shiny-server/WADAC_demo/live_capture_n_extract_features_anomaly_detect.py"
+
+
+  shiny:
+    #image: rocker/shiny:latest
+    build:
+      context: .
+      dockerfile: docker2/Dockerfile
+    ports:
+      - "3838:3838"
+    tty: true
+    container_name: shiny
+    #restart: unless-stopped
+    volumes:
+      - ./WADAC_demo:/srv/shiny-server/WADAC_demo
+      - shinylog:/var/log/shiny-server/
+      - shinyhome:/home/shiny/
+#    depends_on:
+#      - web
+  web:
+    build:
+      context: .
+      dockerfile: docker2/python_Dockerfile.dockerfile
+    command: bash -c "python3 /srv/shiny-server/WADAC_demo/live_capture_n_extract_features_anomaly_detect.py"
+    depends_on:
+      - shiny
+
+volumes:
+  db_data:
+  upload:
+  shinylog:
+  shinyhome:
+  

@@ -1,0 +1,12 @@
+name: WADAC_demo
+title: WADAC_demo
+username:
+account: ragav208
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 660695
+bundleId: 1833585
+url: https://ragav208.shinyapps.io/WADAC_demo/
+when: 1548316922.06057
+asMultiple: FALSE
+asStatic: FALSE
